@@ -13,3 +13,17 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
+
+cloud:
+  aws:
+    s3:
+      bucket: weflo
+      path:
+        parts: parts
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+    credentials:
+      accessKey: ${AWS_ACCESS_KEY_ID}
+      secretKey: ${AWS_SECRET_ACCESS_KEY}
