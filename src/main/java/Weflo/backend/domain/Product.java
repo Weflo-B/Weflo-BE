@@ -25,4 +25,7 @@ public class Product {
 
     @Column(name = "sale_price")
     private Integer salePrice;
+
+    @Column(name = "product_image")
+    private String image;
 }

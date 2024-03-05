@@ -14,14 +14,14 @@ public class OrderHistory {
     @Column(name = "order_history_id")
     private Long id;
 
-    @Column(name = "category")
-    private String category;
+//    @Column(name = "category")
+//    private String category;
 
-    @Column(name = "product_name")
-    private String name;
+//    @Column(name = "product_name")
+//    private String name;
 
-    @Column(name = "price")
-    private Integer price;
+//    @Column(name = "price")
+//    private Integer price;
 
     @Column(name = "amount")
     private Integer amount;
@@ -39,5 +39,9 @@ public class OrderHistory {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "drone_id")
     private Drone drone;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Product product;
 
 }
