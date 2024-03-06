@@ -1,7 +1,6 @@
 package Weflo.backend.dto.quotation.response;
 
 import Weflo.backend.dto.common.ProductInfoDto;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
@@ -10,7 +9,6 @@ import java.util.List;
 
 @Data
 @Builder
-@AllArgsConstructor
 public class QuotationResponse {
     private String name;
     private LocalDate orderDate;
