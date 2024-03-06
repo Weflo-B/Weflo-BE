@@ -1,4 +1,3 @@
-/*
 package Weflo.backend.dto.user.response;
 
 import lombok.AllArgsConstructor;
@@ -9,10 +8,11 @@ import lombok.Data;
 @Builder
 @AllArgsConstructor
 public class SignUpResponse {
+    /*
     private String loginId;
     private String name;
     private String tel;
     private String address;
     private InsuranceResponse insuranceInfo;
+    */
 }
-*/

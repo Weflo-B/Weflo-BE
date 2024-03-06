@@ -1,4 +1,3 @@
-/*
 package Weflo.backend.dto.user.response;
 
 import lombok.AllArgsConstructor;
@@ -9,7 +8,8 @@ import lombok.Data;
 @Builder
 @AllArgsConstructor
 public class LoginResponse {
+    /*
     private Long id;
     private String jwtToken;
+    */
 }
-*/
