@@ -8,6 +8,7 @@ import lombok.Data;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProductInfoDto {
+    private String productImage;
     private String category;
     private String name;
     private Integer price;
