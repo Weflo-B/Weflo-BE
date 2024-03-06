@@ -11,7 +11,7 @@ import java.util.List;
 @Builder
 @RequiredArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-class AbnormalPartsDto {
+public class AbnormalPartsDto {
     private String category;
     private List<PartScoreDto> partsScore;
 }
