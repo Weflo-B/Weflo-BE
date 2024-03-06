@@ -27,5 +27,5 @@ public class Product {
     private Integer salePrice;
 
     @Column(name = "product_image")
-    private String image;
+    private String productImage;
 }

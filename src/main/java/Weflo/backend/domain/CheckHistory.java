@@ -19,10 +19,6 @@ public class CheckHistory {
     @Column(name = "check_date")
     private LocalDate checkDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "drone_id")
-    private Drone drone;
-
     @Column(name = "location")
     private String location;
 
@@ -34,5 +30,9 @@ public class CheckHistory {
 
     @Column(name = "issue")
     private String issue;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "drone_id")
+    private Drone drone;
 
 }
