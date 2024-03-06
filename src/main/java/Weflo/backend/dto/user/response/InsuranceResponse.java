@@ -17,4 +17,3 @@ public class InsuranceResponse {
     private LocalDate updateDate;
     private int insuranceRate;
 }
-
