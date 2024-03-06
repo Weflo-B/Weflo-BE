@@ -12,7 +12,7 @@ import java.time.LocalDate;
 public class DeliveryDetailResponse {
     private LocalDate orderDate;
     private LocalDate estimateDate;
-    private String deliveryStatus;
+    private String deliveryDetailStatus;
     private String category;
     private String name;
     private int salePrice;
