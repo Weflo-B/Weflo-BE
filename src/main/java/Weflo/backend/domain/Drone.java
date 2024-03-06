@@ -35,6 +35,9 @@ public class Drone {
     @Column(name = "is_dispose")
     private boolean isDispose;
 
+    @Column(name = "need_parts_count")
+    private Integer count;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
