@@ -38,6 +38,9 @@ public class Drone {
     @Column(name = "need_parts_count")
     private Integer count;
 
+    @Column(name = "drone_image")
+    private String droneImage;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
