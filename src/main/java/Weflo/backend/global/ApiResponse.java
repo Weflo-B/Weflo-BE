@@ -38,6 +38,16 @@ public class ApiResponse<T> {
         return new ApiResponse<>(true, SuccessStatus._OK.getCode(), message, data);
     }
 
+    //POST시 사용
+    public static <T> ApiResponse<T> onSuccessCreated(T data) {
+        return new ApiResponse<>(true, SuccessStatus._OK.getCode(), SuccessStatus._OK.getMessage(), data);
+    }
+
+    //message까지 같이 넣을 수 있는 응답 포맷
+    public static <T> ApiResponse<T> onSuccessCreated(String message, T data) {
+        return new ApiResponse<>(true, SuccessStatus._OK.getCode(), message, data);
+    }
+
     public static <T> ApiResponse<T> onFailure(String code, String message, T data) {
         return new ApiResponse<>(false, code, message, data);
     }
