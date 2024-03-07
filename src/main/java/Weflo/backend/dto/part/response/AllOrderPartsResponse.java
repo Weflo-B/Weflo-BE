@@ -10,4 +10,10 @@ import java.util.List;
 @Builder
 public class AllOrderPartsResponse {
     private List<OrderPartsDto> orderParts;
+
+    public static AllOrderPartsResponse of(List<OrderPartsDto> orderPartsDtoList) {
+        return builder()
+                .orderParts(orderPartsDtoList)
+                .build();
+    }
 }
