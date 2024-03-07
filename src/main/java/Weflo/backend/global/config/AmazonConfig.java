@@ -29,8 +29,8 @@ public class AmazonConfig {
     @Value("${cloud.aws.region.static}")
     private String region;
 
-    @Value("${cloud.aws.s3.path.parts}")
-    private String partsPath;
+//    @Value("${cloud.aws.s3.path.parts}")
+//    private String partsPath;
 
 
     private AWSCredentials awsCredentials;

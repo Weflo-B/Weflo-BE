@@ -36,8 +36,8 @@ public class AmazonS3Manager{
         return amazonS3.getUrl(amazonConfig.getBucket(), keyName).toString();
     }
 
-    public String generatePartsKeyName(Uuid uuid) {
-        return amazonConfig.getPartsPath() + '/' + uuid.getUuid();
-    }
+//    public String generatePartsKeyName(Uuid uuid) {
+//        return amazonConfig.getPartsPath() + '/' + uuid.getUuid();
+//    }
 
 }
