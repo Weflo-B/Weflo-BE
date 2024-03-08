@@ -1,4 +1,4 @@
-package Weflo.backend.repository.orderhistory;
+package Weflo.backend.repository.orderHistory;
 
 
 import Weflo.backend.domain.Drone;
