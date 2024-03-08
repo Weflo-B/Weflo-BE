@@ -11,7 +11,7 @@ import Weflo.backend.dto.common.SellerInfoDto;
 import Weflo.backend.dto.deliveryDetail.response.ChangeDeliveryStatusResponse;
 import Weflo.backend.dto.deliveryDetail.response.DeliveryDetailResponse;
 import Weflo.backend.repository.deliverydetail.DeliveryDetailRepository;
-import Weflo.backend.repository.orderHistory.OrderHistoryRepository;
+import Weflo.backend.repository.orderhistory.OrderHistoryRepository;
 import Weflo.backend.repository.product.ProductRepository;
 import com.amazonaws.services.kms.model.NotFoundException;
 import lombok.RequiredArgsConstructor;

@@ -7,7 +7,7 @@ import Weflo.backend.dto.common.OrderHistoryDto;
 import Weflo.backend.dto.common.OrderStatusDto;
 import Weflo.backend.dto.orderHistory.response.AllOrderHistoriesResponse;
 import Weflo.backend.repository.drone.DroneRepository;
-import Weflo.backend.repository.orderHistory.OrderHistoryRepository;
+import Weflo.backend.repository.orderhistory.OrderHistoryRepository;
 import Weflo.backend.repository.product.ProductRepository;
 import com.amazonaws.services.kms.model.NotFoundException;
 import lombok.RequiredArgsConstructor;

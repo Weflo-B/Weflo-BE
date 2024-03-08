@@ -11,7 +11,7 @@ import Weflo.backend.dto.common.ProductInfoDto;
 import Weflo.backend.dto.part.response.AllOrderPartsResponse;
 import Weflo.backend.dto.part.response.OrderPartsDetailResponse;
 import Weflo.backend.repository.drone.DroneRepository;
-import Weflo.backend.repository.orderHistory.OrderHistoryRepository;
+import Weflo.backend.repository.orderhistory.OrderHistoryRepository;
 import Weflo.backend.repository.product.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
