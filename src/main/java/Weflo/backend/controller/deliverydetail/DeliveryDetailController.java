@@ -1,13 +1,10 @@
 package Weflo.backend.controller.deliverydetail;
 
-import Weflo.backend.dto.deliveryDetail.response.ChangeDeliveryStatusResponse;
-import Weflo.backend.dto.deliveryDetail.response.DeliveryDetailResponse;
-import Weflo.backend.dto.orderHistory.response.AllOrderHistoriesResponse;
+import Weflo.backend.dto.deliverydetail.response.ChangeDeliveryStatusResponse;
+import Weflo.backend.dto.deliverydetail.response.DeliveryDetailResponse;
 import Weflo.backend.global.ApiResponse;
 import Weflo.backend.global.status.Message;
 import Weflo.backend.service.deliverydetail.DeliveryDetailService;
-import Weflo.backend.service.insurance.InsuranceService;
-import Weflo.backend.service.orderHistory.OrderHistoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

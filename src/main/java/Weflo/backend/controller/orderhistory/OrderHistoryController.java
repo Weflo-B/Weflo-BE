@@ -1,9 +1,9 @@
 package Weflo.backend.controller.orderhistory;
 
-import Weflo.backend.dto.orderHistory.response.AllOrderHistoriesResponse;
+import Weflo.backend.dto.orderhistory.response.AllOrderHistoriesResponse;
 import Weflo.backend.global.ApiResponse;
 import Weflo.backend.global.status.Message;
-import Weflo.backend.service.orderHistory.OrderHistoryService;
+import Weflo.backend.service.orderhistory.OrderHistoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

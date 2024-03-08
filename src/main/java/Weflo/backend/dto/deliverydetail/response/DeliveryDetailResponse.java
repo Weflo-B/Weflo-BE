@@ -1,4 +1,4 @@
-package Weflo.backend.dto.deliveryDetail.response;
+package Weflo.backend.dto.deliverydetail.response;
 
 import Weflo.backend.dto.common.BuyerInfoDto;
 import Weflo.backend.dto.common.PastDateInfoDto;

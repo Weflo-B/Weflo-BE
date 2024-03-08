@@ -1,6 +1,5 @@
-package Weflo.backend.dto.checkHistory.response;
+package Weflo.backend.dto.checkhistory.response;
 
-import Weflo.backend.dto.common.DroneInfoDto;
 import lombok.Builder;
 import lombok.Data;
 
