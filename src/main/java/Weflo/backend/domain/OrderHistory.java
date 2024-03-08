@@ -39,4 +39,7 @@ public class OrderHistory {
     @JoinColumn(name = "product_id")
     private Product product;
 
+    public void updateOrderHistoryStatus(String status) {
+        this.orderHistoryStatus = status;
+    }
 }

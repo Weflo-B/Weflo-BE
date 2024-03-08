@@ -14,4 +14,13 @@ public class QuotationResponse {
     private LocalDate orderDate;
     private List<ProductInfoDto> productsInfo;
     private int sumPrice;
+
+    public static QuotationResponse of(List<ProductInfoDto> productInfoDto, int sumPrice) {
+        return QuotationResponse.builder()
+                .name("파블로 항공")
+                .orderDate(LocalDate.now())
+                .productsInfo(productInfoDto)
+                .sumPrice(sumPrice)
+                .build();
+    }
 }
