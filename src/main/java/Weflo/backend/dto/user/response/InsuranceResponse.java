@@ -10,8 +10,8 @@ import java.time.LocalDate;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class InsuranceResponse {
-    private boolean isJoin;
+    private Boolean isJoin;
     private LocalDate joinDate;
     private LocalDate updateDate;
-    private int insuranceRate;
+    private Integer insuranceRate;
 }

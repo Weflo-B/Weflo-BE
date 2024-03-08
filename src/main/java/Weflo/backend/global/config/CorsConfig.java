@@ -22,7 +22,7 @@ public class CorsConfig {
             CorsConfiguration config = new CorsConfiguration();
             config.setAllowedHeaders(Collections.singletonList("*"));
             config.setAllowedMethods(Collections.singletonList("*"));
-            config.setAllowedOriginPatterns(Collections.singletonList("http://localhost:3000")); // ⭐️ 허용할 origin
+            config.setAllowedOriginPatterns(Collections.singletonList("*")); // ⭐️ 허용할 origin
             config.setAllowCredentials(true);
             return config;
         };
@@ -36,7 +36,7 @@ public class CorsConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize ->
                         authorize
-                                .requestMatchers("/api").permitAll() // api로 시작하는 uri에 대한 요청 허용
+                                .requestMatchers("/**").permitAll()
                 );
 
         return httpSecurity.build();
