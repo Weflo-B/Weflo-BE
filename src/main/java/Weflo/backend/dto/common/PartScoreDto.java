@@ -12,6 +12,15 @@ public class PartScoreDto {
     private Integer motorScore;
     private Integer bladeScore;
     private Integer escScore;
-    private Integer totalAvg;
-    private AbnormalCountDto abnormalCount;
+//    private Integer totalAvg;
+//    private AbnormalCountDto abnormalCount;
+
+    public static PartScoreDto of(String name, Integer motorScore, Integer bladeScore, Integer escScore) {
+        return PartScoreDto.builder()
+                .name(name)
+                .motorScore(motorScore)
+                .bladeScore(bladeScore)
+                .escScore(escScore)
+                .build();
+    }
 }

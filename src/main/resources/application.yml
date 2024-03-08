@@ -18,8 +18,9 @@ cloud:
   aws:
     s3:
       bucket: weflo
-      path:
-        parts: parts
+#      path:
+#        parts: parts
+#        drone: drone
     region:
       static: ap-northeast-2
     stack:
