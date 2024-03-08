@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/api/histories")
 public class OrderHistoryController {
 
 }
