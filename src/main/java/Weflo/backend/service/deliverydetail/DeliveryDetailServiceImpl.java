@@ -10,6 +10,7 @@ import Weflo.backend.dto.common.ProductInfoDto;
 import Weflo.backend.dto.common.SellerInfoDto;
 import Weflo.backend.dto.deliverydetail.response.ChangeDeliveryStatusResponse;
 import Weflo.backend.dto.deliverydetail.response.DeliveryDetailResponse;
+import Weflo.backend.global.status.DeliveryStatus;
 import Weflo.backend.repository.deliverydetail.DeliveryDetailRepository;
 import Weflo.backend.repository.orderhistory.OrderHistoryRepository;
 import Weflo.backend.repository.product.ProductRepository;
@@ -19,13 +20,11 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class DeliveryDetailServiceImpl implements DeliveryDetailService {
-    private static String[] PAST_DATES = {"배송시작", "집화처리", "간선상차", "간선하차", "배송완료", "종료"};
     private final DeliveryDetailRepository deliveryDetailRepository;
     private final OrderHistoryRepository orderHistoryRepository;
     private final ProductRepository productRepository;
@@ -94,11 +93,15 @@ public class DeliveryDetailServiceImpl implements DeliveryDetailService {
     private List<PastDateInfoDto> createPastDates(String status, LocalDate startDate) {
         List<PastDateInfoDto> pastDates = new ArrayList<>();
 
-        for (int i = 0; i < Arrays.asList(PAST_DATES).indexOf(status); i++) {
+        for (DeliveryStatus deliveryStatus : DeliveryStatus.values()) {
+            if (deliveryStatus.getStatus().equals(status)) {
+                break;
+            }
+
             startDate = startDate.plusDays(1);
 
             pastDates.add(PastDateInfoDto.builder()
-                    .status(PAST_DATES[i])
+                    .status(deliveryStatus.getStatus())
                     .date(startDate)
                     .build());
         }
