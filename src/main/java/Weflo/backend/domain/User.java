@@ -33,10 +33,13 @@ public class User {
     private String address;
 
     @Column(name = "is_join")
-    private boolean isJoin;
+    private Boolean isJoin;
 
     @Column(name = "join_date")
     private LocalDate joinDate;
+
+    @Column(name = "update_date")
+    private LocalDate updateDate;
 
     @Column(name = "insurance_rate")
     private Integer insuranceRate;
