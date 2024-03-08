@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -33,7 +34,7 @@ public class Drone {
     private LocalDate lastCheckDate;
 
     @Column(name = "is_dispose")
-    private boolean isDispose;
+    private Boolean isDispose;
 
     @Column(name = "need_parts_count")
     private Integer count;
@@ -44,4 +45,17 @@ public class Drone {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "drone", fetch = FetchType.LAZY)
+    private List<Part> parts;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "check_history_id")
+    private CheckHistory checkHistory;
+
+    public Integer setCount(Integer lowBladeCount, Integer lowMotorCount, Integer lowEscCount) {
+        this.count = lowBladeCount + lowMotorCount + lowEscCount;
+        return this.count;
+    }
+
 }
