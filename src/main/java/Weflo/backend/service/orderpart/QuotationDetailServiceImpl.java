@@ -3,7 +3,6 @@ package Weflo.backend.service.orderpart;
 import Weflo.backend.domain.Drone;
 import Weflo.backend.domain.OrderHistory;
 import Weflo.backend.dto.common.ProductInfoDto;
-import Weflo.backend.dto.quotation.response.OrderConfirmResponse;
 import Weflo.backend.dto.quotation.response.QuotationResponse;
 import Weflo.backend.repository.drone.DroneRepository;
 import Weflo.backend.repository.orderhistory.OrderHistoryRepository;
@@ -12,8 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
