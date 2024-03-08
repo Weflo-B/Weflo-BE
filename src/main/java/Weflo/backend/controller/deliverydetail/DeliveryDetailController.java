@@ -1,7 +1,7 @@
 package Weflo.backend.controller.deliverydetail;
 
-import Weflo.backend.dto.deliveryDetail.response.ChangeDeliveryStatusResponse;
-import Weflo.backend.dto.deliveryDetail.response.DeliveryDetailResponse;
+import Weflo.backend.dto.deliverydetail.response.ChangeDeliveryStatusResponse;
+import Weflo.backend.dto.deliverydetail.response.DeliveryDetailResponse;
 import Weflo.backend.global.ApiResponse;
 import Weflo.backend.global.status.Message;
 import Weflo.backend.service.deliverydetail.DeliveryDetailService;

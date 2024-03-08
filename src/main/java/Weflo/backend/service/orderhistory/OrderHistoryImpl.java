@@ -21,7 +21,7 @@ import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
-public class OrderHistoryImpl implements Weflo.backend.service.orderhistory.OrderHistoryService {
+public class OrderHistoryImpl implements OrderHistoryService {
     private final OrderHistoryRepository orderHistoryRepository;
     private final DroneRepository droneRepository;
     private final ProductRepository productRepository;
