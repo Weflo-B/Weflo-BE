@@ -36,5 +36,5 @@ public class DeliveryDetail {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_history_id")
-    private OrderHistory orderHistoryId;
+    private OrderHistory orderHistory;
 }
