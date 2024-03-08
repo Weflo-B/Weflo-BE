@@ -1,11 +1,11 @@
-package Weflo.backend.service.orderHistory;
+package Weflo.backend.service.orderhistory;
 
 import Weflo.backend.domain.Drone;
 import Weflo.backend.domain.OrderHistory;
 import Weflo.backend.domain.Product;
 import Weflo.backend.dto.common.OrderHistoryDto;
 import Weflo.backend.dto.common.OrderStatusDto;
-import Weflo.backend.dto.orderHistory.response.AllOrderHistoriesResponse;
+import Weflo.backend.dto.orderhistory.response.AllOrderHistoriesResponse;
 import Weflo.backend.repository.drone.DroneRepository;
 import Weflo.backend.repository.orderhistory.OrderHistoryRepository;
 import Weflo.backend.repository.product.ProductRepository;
@@ -21,7 +21,7 @@ import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
-public class OrderHistoryImpl implements OrderHistoryService {
+public class OrderHistoryImpl implements Weflo.backend.service.orderhistory.OrderHistoryService {
     private final OrderHistoryRepository orderHistoryRepository;
     private final DroneRepository droneRepository;
     private final ProductRepository productRepository;
