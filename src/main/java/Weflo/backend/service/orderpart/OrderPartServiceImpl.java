@@ -211,7 +211,7 @@ public class OrderPartServiceImpl implements OrderPartService {
                 .product(product)
                 .amount(amount)
                 .totalPrice(totalPrice)
-                .orderName("파블로 항공")
+                .orderName(drone.getUser().getName())
                 .orderDate(LocalDate.now())
                 .orderHistoryStatus("주문 대기중")
                 .build();
