@@ -12,4 +12,12 @@ import java.util.List;
 public class AbnormalPartsDto {
     private String category;
     private List<PartScoreDto> partsScore;
+
+    public static AbnormalPartsDto of(String category, List<PartScoreDto> partsScoreList) {
+        return AbnormalPartsDto.builder()
+                .category(category)
+                .partsScore(partsScoreList)
+                .build();
+
+    }
 }
