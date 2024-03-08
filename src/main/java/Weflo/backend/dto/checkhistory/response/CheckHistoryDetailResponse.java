@@ -1,10 +1,7 @@
-package Weflo.backend.dto.checkHistory.response;
+package Weflo.backend.dto.checkhistory.response;
 
-import Weflo.backend.dto.common.PartScoreDto;
 import lombok.Builder;
 import lombok.Data;
-
-import java.util.List;
 
 @Data
 @Builder

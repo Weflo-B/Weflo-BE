@@ -1,4 +1,4 @@
-package Weflo.backend.dto.orderHistory.response;
+package Weflo.backend.dto.orderhistory.response;
 
 import Weflo.backend.dto.common.OrderHistoryDto;
 import Weflo.backend.dto.common.OrderStatusDto;

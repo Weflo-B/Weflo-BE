@@ -1,4 +1,4 @@
-package Weflo.backend.dto.deliveryDetail.response;
+package Weflo.backend.dto.deliverydetail.response;
 
 import lombok.Builder;
 import lombok.Data;
