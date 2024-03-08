@@ -8,6 +8,7 @@ import Weflo.backend.dto.common.BuyerInfoDto;
 import Weflo.backend.dto.common.PastDateInfoDto;
 import Weflo.backend.dto.common.ProductInfoDto;
 import Weflo.backend.dto.common.SellerInfoDto;
+import Weflo.backend.dto.deliveryDetail.response.ChangeDeliveryStatusResponse;
 import Weflo.backend.dto.deliveryDetail.response.DeliveryDetailResponse;
 import Weflo.backend.repository.deliverydetail.DeliveryDetailRepository;
 import Weflo.backend.repository.orderHistory.OrderHistoryRepository;
@@ -50,6 +51,43 @@ public class DeliveryDetailServiceImpl implements DeliveryDetailService {
                 .productInfos(createProductInfoDto(productInfo, orderHistory.getAmount()))
                 .sellerInfos(createSellerInfoDto(deliveryDetail))
                 .buyerInfos(createBuyerInfoDto(userInfo))
+                .build();
+    }
+
+    @Override
+    public ChangeDeliveryStatusResponse changeDeliveryStatus(Long orderHistoryId, String changedStatus) {
+        OrderHistory orderHistory = orderHistoryRepository.findById(orderHistoryId)
+                .orElseThrow(() -> new NotFoundException("OrderHistory not found"));
+
+        DeliveryDetail deliveryDetail = deliveryDetailRepository.findByOrderHistoryId(orderHistoryId);
+
+        OrderHistory newOrderHistory =  OrderHistory.builder()
+                .id(orderHistory.getId())
+                .amount(orderHistory.getTotalPrice())
+                .totalPrice(orderHistory.getTotalPrice())
+                .orderName(orderHistory.getOrderName())
+                .orderDate(orderHistory.getOrderDate())
+                .orderHistoryStatus(changedStatus)
+                .drone(orderHistory.getDrone())
+                .product(orderHistory.getProduct())
+                .build();
+
+        DeliveryDetail newDeliveryDetail = DeliveryDetail.builder()
+                .id(deliveryDetail.getId())
+                .estimateDate(deliveryDetail.getEstimateDate())
+                .deliveryDetailStatus(changedStatus)
+                .deliveryCompany(deliveryDetail.getDeliveryCompany())
+                .deliveryTel(deliveryDetail.getDeliveryTel())
+                .invoiceNumber(deliveryDetail.getInvoiceNumber())
+                .seller(deliveryDetail.getSeller())
+                .orderHistory(deliveryDetail.getOrderHistory())
+                .build();
+
+        orderHistoryRepository.save(newOrderHistory);
+        deliveryDetailRepository.save(newDeliveryDetail);
+
+        return ChangeDeliveryStatusResponse.builder()
+                .deliveryDetailStatus(changedStatus)
                 .build();
     }
 
