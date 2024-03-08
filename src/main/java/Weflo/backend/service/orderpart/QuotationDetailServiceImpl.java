@@ -3,14 +3,17 @@ package Weflo.backend.service.orderpart;
 import Weflo.backend.domain.Drone;
 import Weflo.backend.domain.OrderHistory;
 import Weflo.backend.dto.common.ProductInfoDto;
+import Weflo.backend.dto.quotation.response.OrderConfirmResponse;
 import Weflo.backend.dto.quotation.response.QuotationResponse;
 import Weflo.backend.repository.drone.DroneRepository;
 import Weflo.backend.repository.orderhistory.OrderHistoryRepository;
 import Weflo.backend.repository.product.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -18,6 +21,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class QuotationDetailServiceImpl implements QuotationDetailService {
     private final DroneRepository droneRepository;
     private final OrderHistoryRepository orderHistoryRepository;
@@ -64,4 +68,18 @@ public class QuotationDetailServiceImpl implements QuotationDetailService {
                 .amount(a.getAmount() + b.getAmount())
                 .build();
     }
+
+    @Override
+    public void confirmOrder(Long userId) {
+        List<Drone> findAllDroneByUserId = droneRepository.findAllByUserId(userId);
+        List<OrderConfirmResponse> findOrderHistoryByDrone = new ArrayList<>();
+        for (Drone drone : findAllDroneByUserId) {
+            List<OrderHistory> orderHistoryList = orderHistoryRepository.findByDrone(drone);
+            for (OrderHistory orderHistory : orderHistoryList) {
+                orderHistory.updateOrderHistoryStatus("배송 준비중");
+                findOrderHistoryByDrone.add(OrderConfirmResponse.of(orderHistory));
+            }
+        }
+    }
+
 }
