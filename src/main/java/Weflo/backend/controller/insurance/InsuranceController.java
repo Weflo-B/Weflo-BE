@@ -5,10 +5,7 @@ import Weflo.backend.global.ApiResponse;
 import Weflo.backend.global.status.Message;
 import Weflo.backend.service.insurance.InsuranceService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -21,5 +18,12 @@ public class InsuranceController {
         InsuranceResponse insuranceResponse = insuranceService.getInsuranceDetails(userId);
 
         return ApiResponse.onSuccess(Message._GET_INSURANCE_MESSAGE.getMessage(), insuranceResponse);
+    }
+
+    @PostMapping("join/{user_id}")
+    public ApiResponse<InsuranceResponse> joinInsurance(@PathVariable("user_id") Long userId) {
+        InsuranceResponse insuranceResponse = insuranceService.joinInsurance(userId);
+
+        return ApiResponse.onSuccessCreated(Message._JOIN_SUCCESS_MESSAGE.getMessage(), insuranceResponse);
     }
 }
