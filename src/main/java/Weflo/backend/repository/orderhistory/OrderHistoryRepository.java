@@ -15,5 +15,4 @@ public interface OrderHistoryRepository extends JpaRepository<OrderHistory, Long
     List<OrderHistory> findAllByDroneIdAndOrderHistoryStatus(Long drone_id, String orderHistoryStatus);
     List<OrderHistory> findAllByDroneIdAndOrderDateBetween(Long droneId, LocalDate startOfMonth, LocalDate endOfMonth);
     List<OrderHistory> findAllByDroneIdAndOrderDateBetweenAndOrderHistoryStatus(Long droneId, LocalDate startOfMonth, LocalDate endOfMonth, String orderHistoryStatus);
-
 }
