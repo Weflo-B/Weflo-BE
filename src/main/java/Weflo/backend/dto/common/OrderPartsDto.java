@@ -22,7 +22,7 @@ public class OrderPartsDto {
     private Integer balanceScore;
     private Integer totalScore;
     private LocalDate orderDate;
-    private LocalDate estimateDate;
+//    private LocalDate estimateDate;
     private List<ProductInfoDto> productsInfo;
     private List<AbnormalPartsDto> abnormalities;
 
@@ -60,21 +60,21 @@ public class OrderPartsDto {
                 .nickname(findDrone.getNickname())
                 .balanceScore(findDrone.getCheckHistory().getBalanceScore())
                 .totalScore(findDrone.getCheckHistory().getTotalScore())
-                .orderDate(LocalDate.now()) // 마지막 주문 날짜로 설정해야 할 수도 있습니다.
-                .estimateDate(LocalDate.now().plusDays(3)) // 추정 배송 날짜는 비즈니스 로직에 따라 조정해야 할 수 있습니다.
+                .orderDate(LocalDate.now())
+//                .estimateDate(LocalDate.now().plusDays(5))
                 .productsInfo(productInfoDtoList)
                 .abnormalities(abnormalPartsDtoList)
                 .build();
     }
 
-    public OrderPartsDto(Long id, String droneImg, String nickname, Integer balanceScore, Integer totalScore, LocalDate orderDate, LocalDate estimateDate, List<ProductInfoDto> productsInfo, List<AbnormalPartsDto> abnormalities) {
+    public OrderPartsDto(Long id, String droneImg, String nickname, Integer balanceScore, Integer totalScore, LocalDate orderDate, /**LocalDate estimateDate,**/ List<ProductInfoDto> productsInfo, List<AbnormalPartsDto> abnormalities) {
         this.id = id;
         this.droneImg = droneImg;
         this.nickname = nickname;
         this.balanceScore = balanceScore;
         this.totalScore = totalScore;
         this.orderDate = orderDate;
-        this.estimateDate = estimateDate;
+//        this.estimateDate = estimateDate;
         this.productsInfo = productsInfo;
         this.abnormalities = abnormalities;
     }
