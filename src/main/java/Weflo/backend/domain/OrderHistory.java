@@ -40,6 +40,8 @@ public class OrderHistory {
     private Product product;
 
     public void updateOrderHistoryStatus(String status) {
-        this.orderHistoryStatus = status;
+        if (this.orderHistoryStatus.equals("주문대기중")) {
+            this.orderHistoryStatus = status;
+        }
     }
 }
