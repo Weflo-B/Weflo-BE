@@ -84,7 +84,7 @@ public class QuotationDetailServiceImpl implements QuotationDetailService {
         for (Drone drone : findAllDroneByUserId) {
             List<OrderHistory> orderHistoryList = orderHistoryRepository.findByDrone(drone);
             for (OrderHistory orderHistory : orderHistoryList) {
-                orderHistory.updateOrderHistoryStatus("배송 준비중");
+                orderHistory.updateOrderHistoryStatus("배송준비중");
             }
         }
     }
