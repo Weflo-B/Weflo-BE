@@ -20,7 +20,7 @@ public class InsuranceController {
         return ApiResponse.onSuccess(Message._GET_INSURANCE_MESSAGE.getMessage(), insuranceResponse);
     }
 
-    @PostMapping("join/{user_id}")
+    @PostMapping("/join/{user_id}")
     public ApiResponse<InsuranceResponse> joinInsurance(@PathVariable("user_id") Long userId) {
         InsuranceResponse insuranceResponse = insuranceService.joinInsurance(userId);
 
