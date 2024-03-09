@@ -62,6 +62,7 @@ public class OrderPartServiceImpl implements OrderPartService {
         }
     }
 
+    @Override
     public List<ProductInfoDto> createProductInfoDtoList(Drone drone) {
         Integer lowBladeCount = countLowBladeScores(drone.getId());
         Integer lowMotorCount = countLowMotorScores(drone.getId());
@@ -119,22 +120,30 @@ public class OrderPartServiceImpl implements OrderPartService {
             System.out.println("productInfoDtosForDrone = " + productInfoDtosForDrone);
 
 
-            // 주문 기록 저장 로직
 //            productInfoDtosForDrone.forEach(productInfoDto -> {
-//                Product product = productRepository.findById(getProductIdBasedOnCategory(productInfoDto.getCategory()))
-//                        .orElseThrow(() -> new RuntimeException("Product not found"));
-            productInfoDtosForDrone.forEach(productInfoDto -> {
-                Product product = productRepository.save(Product.builder()
-                        .category(productInfoDto.getCategory())
-                        .name(productInfoDto.getName())
-                        .price(productInfoDto.getPrice())
-                        .salePrice(productInfoDto.getSalePrice())
-                        .productImage(productInfoDto.getProductImage())
-                        .build());
+//                Product product = productRepository.save(Product.builder()
+//                        .category(productInfoDto.getCategory())
+//                        .name(productInfoDto.getName())
+//                        .price(productInfoDto.getPrice())
+//                        .salePrice(productInfoDto.getSalePrice())
+//                        .productImage(productInfoDto.getProductImage())
+//                        .build());
+
+                productInfoDtosForDrone.forEach(productInfoDto -> {
+                    Product product = Product.builder()
+                            .category(productInfoDto.getCategory())
+                            .name(productInfoDto.getName())
+                            .price(productInfoDto.getPrice())
+                            .salePrice(productInfoDto.getSalePrice())
+                            .productImage(productInfoDto.getProductImage())
+                            .build();
                 OrderHistory orderHistory = createOrderHistoryForDrone(drone, product, productInfoDto.getAmount(), productInfoDto.getTotalPrice());
-                orderHistoryRepository.save(orderHistory);
+//                orderHistoryRepository.save(orderHistory);
             });
 
+
+
+//            OrderPartsDto orderPartsDto = OrderPartsDto.of(drone, productInfoDtosForDrone, abnormalPartsDtosForDrone);
             // 마지막으로, 각 드론에 대한 OrderPartsDto 객체를 생성하고 리스트에 추가합니다.
             OrderPartsDto orderPartsDto = OrderPartsDto.builder()
                     .id(drone.getId())
@@ -155,6 +164,47 @@ public class OrderPartServiceImpl implements OrderPartService {
     }
 
     @Override
+    public AllOrderPartsResponse saveProductAndOrderHistory(Long userId) {
+        List<Drone> drones = droneRepository.findAllByUserId(userId);
+        List<OrderPartsDto> orderPartsDtos = new ArrayList<>();
+
+        for (Drone drone : drones) {
+            List<ProductInfoDto> productInfoDtosForDrone = createProductInfoDtoList(drone);
+
+            productInfoDtosForDrone.forEach(productInfoDto -> {
+                Product product = productRepository.save(Product.builder()
+                        .category(productInfoDto.getCategory())
+                        .name(productInfoDto.getName())
+                        .price(productInfoDto.getPrice())
+                        .salePrice(productInfoDto.getSalePrice())
+                        .productImage(productInfoDto.getProductImage())
+                        .build());
+
+                OrderHistory orderHistory = createOrderHistoryForDrone(drone, product, productInfoDto.getAmount(), productInfoDto.getTotalPrice());
+                orderHistoryRepository.save(orderHistory);
+            });
+
+            //            OrderPartsDto orderPartsDto = OrderPartsDto.of(drone, productInfoDtosForDrone, abnormalPartsDtosForDrone);
+            OrderPartsDto orderPartsDto = OrderPartsDto.builder()
+                    .id(drone.getId())
+                    .droneImg(drone.getDroneImage())
+                    .nickname(drone.getNickname())
+                    .balanceScore(drone.getCheckHistory().getBalanceScore())
+                    .totalScore(drone.getCheckHistory().getTotalScore())
+                    .orderDate(LocalDate.now())
+                    .estimateDate(LocalDate.now().plusDays(3))
+                    .productsInfo(productInfoDtosForDrone)
+//                    .abnormalities(abnormalPartsDtosForDrone)
+                    .build();
+
+            orderPartsDtos.add(orderPartsDto);
+        }
+
+        return AllOrderPartsResponse.of(orderPartsDtos);
+    }
+
+
+    @Override
     public OrderPartsDetailResponse getOrderPart(Long userId, Long droneId) {
         List<Drone> drones = droneRepository.findAllByUserId(userId);
         Drone findDrone = null;
@@ -166,23 +216,25 @@ public class OrderPartServiceImpl implements OrderPartService {
         List<AbnormalPartsDto> abnormalPartsDtosForDrone = getAbnormalParts(findDrone);
         List<ProductInfoDto> productInfoDtosForDrone = createProductInfoDtoList(findDrone);
 
-        OrderPartsDto orderPartsDto = OrderPartsDto.builder()
-                .id(findDrone.getId())
-                .droneImg(findDrone.getDroneImage())
-                .nickname(findDrone.getNickname())
-                .balanceScore(findDrone.getCheckHistory().getBalanceScore())
-                .totalScore(findDrone.getCheckHistory().getTotalScore())
-                .orderDate(LocalDate.now()) // 마지막 주문 날짜로 설정해야 할 수도 있습니다.
-                .estimateDate(LocalDate.now().plusDays(3)) // 추정 배송 날짜는 비즈니스 로직에 따라 조정해야 할 수 있습니다.
-                .productsInfo(productInfoDtosForDrone)
-                .abnormalities(abnormalPartsDtosForDrone)
-                .build();
+        OrderPartsDto orderPartsDto = OrderPartsDto.of(findDrone, productInfoDtosForDrone, abnormalPartsDtosForDrone);
+
+//        OrderPartsDto orderPartsDto = OrderPartsDto.builder()
+//                .id(findDrone.getId())
+//                .droneImg(findDrone.getDroneImage())
+//                .nickname(findDrone.getNickname())
+//                .balanceScore(findDrone.getCheckHistory().getBalanceScore())
+//                .totalScore(findDrone.getCheckHistory().getTotalScore())
+//                .orderDate(LocalDate.now()) // 마지막 주문 날짜로 설정해야 할 수도 있습니다.
+//                .estimateDate(LocalDate.now().plusDays(3)) // 추정 배송 날짜는 비즈니스 로직에 따라 조정해야 할 수 있습니다.
+//                .productsInfo(productInfoDtosForDrone)
+//                .abnormalities(abnormalPartsDtosForDrone)
+//                .build();
 
         return OrderPartsDetailResponse.of(orderPartsDto);
 
     }
 
-    private List<AbnormalPartsDto> getAbnormalParts(Drone drone) {
+    public List<AbnormalPartsDto> getAbnormalParts(Drone drone) {
         Map<String, List<PartScoreDto>> categoryToAbnormalPartsMap = new HashMap<>();
 
         for (Part part : drone.getParts()) {
@@ -205,7 +257,8 @@ public class OrderPartServiceImpl implements OrderPartService {
                 .collect(Collectors.toList());
     }
 
-    private OrderHistory createOrderHistoryForDrone(Drone drone, Product product, int amount, int totalPrice) {
+    @Override
+    public OrderHistory createOrderHistoryForDrone(Drone drone, Product product, int amount, int totalPrice) {
         return OrderHistory.builder()
                 .drone(drone)
                 .product(product)
@@ -213,7 +266,7 @@ public class OrderPartServiceImpl implements OrderPartService {
                 .totalPrice(totalPrice)
                 .orderName(drone.getUser().getName())
                 .orderDate(LocalDate.now())
-                .orderHistoryStatus("주문 대기중")
+                .orderHistoryStatus("주문대기중")
                 .build();
     }
 }
