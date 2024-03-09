@@ -73,6 +73,7 @@ public class OrderPartServiceImpl implements OrderPartService {
 
         ProductInfoDto bladeInfo = ProductInfoDto.builder()
                 .productImage("https://weflo.s3.ap-northeast-2.amazonaws.com/1.jpg")
+                .estimateDate(LocalDate.now().plusDays(5))
                 .category("Blade")
                 .name("HOBBYWING X11모터용 블레이드 4314 CW")
                 .price(60000)
@@ -83,6 +84,7 @@ public class OrderPartServiceImpl implements OrderPartService {
 
         ProductInfoDto motorInfo = ProductInfoDto.builder()
                 .productImage("https://weflo.s3.ap-northeast-2.amazonaws.com/7.jpg")
+                .estimateDate(LocalDate.now().plusDays(5))
                 .category("Motor")
                 .name("T2212-920KV 브러쉬리스 모터 CW (V2)")
                 .price(14200)
@@ -93,6 +95,7 @@ public class OrderPartServiceImpl implements OrderPartService {
 
         ProductInfoDto escInfo = ProductInfoDto.builder()
                 .productImage("https://weflo.s3.ap-northeast-2.amazonaws.com/11.png")
+                .estimateDate(LocalDate.now().plusDays(5))
                 .category("Esc")
                 .name("[T-MOTOR] ALPHA 120A 12S 변속기")
                 .price(253000)
@@ -111,14 +114,9 @@ public class OrderPartServiceImpl implements OrderPartService {
         List<OrderPartsDto> orderPartsDtos = new ArrayList<>();
 
         for (Drone drone : drones) {
-            // 먼저 드론의 모든 부품에 대한 점수가 낮은 부품들을 확인하고, AbnormalPartsDto 리스트를 생성합니다.
             List<AbnormalPartsDto> abnormalPartsDtosForDrone = getAbnormalParts(drone);
-            System.out.println("abnormalPartsDtosForDrone = " + abnormalPartsDtosForDrone);
 
-            // 각 드론별로 부품 정보를 바탕으로 ProductInfoDto 리스트를 생성합니다.
             List<ProductInfoDto> productInfoDtosForDrone = createProductInfoDtoList(drone);
-            System.out.println("productInfoDtosForDrone = " + productInfoDtosForDrone);
-
 
 //            productInfoDtosForDrone.forEach(productInfoDto -> {
 //                Product product = productRepository.save(Product.builder()
@@ -151,8 +149,8 @@ public class OrderPartServiceImpl implements OrderPartService {
                     .nickname(drone.getNickname())
                     .balanceScore(drone.getCheckHistory().getBalanceScore())
                     .totalScore(drone.getCheckHistory().getTotalScore())
-                    .orderDate(LocalDate.now()) // 마지막 주문 날짜로 설정해야 할 수도 있습니다.
-                    .estimateDate(LocalDate.now().plusDays(3)) // 추정 배송 날짜는 비즈니스 로직에 따라 조정해야 할 수 있습니다.
+                    .orderDate(LocalDate.now())
+//                    .estimateDate(LocalDate.now().plusDays(3))
                     .productsInfo(productInfoDtosForDrone)
 //                    .abnormalities(abnormalPartsDtosForDrone)
                     .build();
@@ -192,7 +190,7 @@ public class OrderPartServiceImpl implements OrderPartService {
                     .balanceScore(drone.getCheckHistory().getBalanceScore())
                     .totalScore(drone.getCheckHistory().getTotalScore())
                     .orderDate(LocalDate.now())
-                    .estimateDate(LocalDate.now().plusDays(3))
+//                    .estimateDate(LocalDate.now().plusDays(3))
                     .productsInfo(productInfoDtosForDrone)
 //                    .abnormalities(abnormalPartsDtosForDrone)
                     .build();
@@ -235,23 +233,29 @@ public class OrderPartServiceImpl implements OrderPartService {
     }
 
     public List<AbnormalPartsDto> getAbnormalParts(Drone drone) {
-        Map<String, List<PartScoreDto>> categoryToAbnormalPartsMap = new HashMap<>();
+        Map<String, List<PartScoreDto>> categoryToAbnormalPartsMap = new LinkedHashMap<>();
+        categoryToAbnormalPartsMap.put("Blade", new ArrayList<>());
+        categoryToAbnormalPartsMap.put("Motor", new ArrayList<>());
+        categoryToAbnormalPartsMap.put("Esc", new ArrayList<>());
 
         for (Part part : drone.getParts()) {
             if (part.getMotorScore() != null && part.getMotorScore() <= 70) {
-                categoryToAbnormalPartsMap.computeIfAbsent("Motor", k -> new ArrayList<>())
-//                        .add(PartScoreDto.of(part.getName(), part.getMotorScore(), null, null));
+                categoryToAbnormalPartsMap.get("Blade")
                         .add(PartScoreDto.of(part.getName(), part.getMotorScore()));
+//                        .add(PartScoreDto.of(part.getName(), part.getMotorScore(), null, null))
             }
             if (part.getBladeScore() != null && part.getBladeScore() <= 70) {
-                categoryToAbnormalPartsMap.computeIfAbsent("Blade", k -> new ArrayList<>())
-                        .add(PartScoreDto.of(part.getName(), part.getBladeScore()));
+                categoryToAbnormalPartsMap.get("Motor")
+                        .add(PartScoreDto.of(part.getName(), part.getMotorScore()));
             }
             if (part.getEscScore() != null && part.getEscScore() <= 70) {
-                categoryToAbnormalPartsMap.computeIfAbsent("Esc", k -> new ArrayList<>())
-                        .add(PartScoreDto.of(part.getName(), part.getEscScore()));
+                categoryToAbnormalPartsMap.get("Esc")
+                        .add(PartScoreDto.of(part.getName(), part.getMotorScore()));
             }
         }
+
+        // value가 없는 entry를 제거
+        categoryToAbnormalPartsMap.entrySet().removeIf(entry -> entry.getValue().isEmpty());
 
         return categoryToAbnormalPartsMap.entrySet().stream()
                 .map(entry -> AbnormalPartsDto.of(entry.getKey(), entry.getValue()))
