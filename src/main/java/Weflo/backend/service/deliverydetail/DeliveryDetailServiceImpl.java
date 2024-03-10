@@ -62,7 +62,7 @@ public class DeliveryDetailServiceImpl implements DeliveryDetailService {
 
         OrderHistory newOrderHistory =  OrderHistory.builder()
                 .id(orderHistory.getId())
-                .amount(orderHistory.getTotalPrice())
+                .amount(orderHistory.getAmount())
                 .totalPrice(orderHistory.getTotalPrice())
                 .orderName(orderHistory.getOrderName())
                 .orderDate(orderHistory.getOrderDate())
