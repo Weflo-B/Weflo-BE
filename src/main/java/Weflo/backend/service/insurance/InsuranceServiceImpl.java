@@ -43,7 +43,7 @@ public class InsuranceServiceImpl implements InsuranceService {
                 .address(user.getAddress())
                 .isJoin(true)
                 .joinDate(now)
-                .updateDate(now.plusYears(3))
+                .updateDate(now.plusYears(4))
                 .insuranceRate(10)
                 .build();
 
