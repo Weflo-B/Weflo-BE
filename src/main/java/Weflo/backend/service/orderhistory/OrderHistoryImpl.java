@@ -71,6 +71,11 @@ public class OrderHistoryImpl implements OrderHistoryService {
                 Product product = productRepository.findById(order.getProduct().getId())
                         .orElseThrow(() -> new NotFoundException("Product not found"));
 
+                String orderHistoryStatus = order.getOrderHistoryStatus();
+
+                // orderHistoryStatus가 주문대기중인 경우에는 아예 제외
+                if (orderHistoryStatus.equals("주문대기중")) continue;
+
                 OrderHistoryDto orderHistoryDto = OrderHistoryDto.builder()
                         .id(order.getId())
                         .category(product.getCategory())
@@ -78,15 +83,17 @@ public class OrderHistoryImpl implements OrderHistoryService {
                         .salePrice(product.getSalePrice())
                         .amount(order.getAmount())
                         .orderDate(order.getOrderDate())
-                        .status(order.getOrderHistoryStatus())
+                        .status(orderHistoryStatus)
                         .productImage(product.getProductImage())
                         .build();
                 orderHistories.add(orderHistoryDto);
 
-                sumPrice += product.getSalePrice() * order.getAmount();
+                // orderHistoryStatus가 {주문취소, 반품} 인 경우에는 총 금액 합산에서 제외
+                if (!orderHistoryStatus.equals("주문취소") && !orderHistoryStatus.equals("반품")) {
+                    sumPrice += product.getSalePrice() * order.getAmount();
+                }
 
                 // orderHistoryStatus가 {배송준비중, 배송중, 배송완료, 구매확정} 에 속하는 것들만 put
-                String orderHistoryStatus = order.getOrderHistoryStatus();
                 if (statusMap.containsKey(orderHistoryStatus)) {
                     statusMap.put(orderHistoryStatus, statusMap.get(orderHistoryStatus) + 1);
                 }
