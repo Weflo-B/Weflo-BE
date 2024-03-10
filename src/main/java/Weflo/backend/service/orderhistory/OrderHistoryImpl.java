@@ -41,6 +41,8 @@ public class OrderHistoryImpl implements OrderHistoryService {
     private AllOrderHistoriesResponse processOrderHistories(List<Drone> drones, Integer month, String orderStatus) {
         List<OrderHistoryDto> orderHistories = new ArrayList<>();
         Map<String, Integer> statusMap = new HashMap<>();
+        statusMap.put("배송준비중", 0); statusMap.put("배송중", 0);
+        statusMap.put("배송완료", 0); statusMap.put("구매확정", 0);
         int sumPrice = 0;
 
         for (Drone drone : drones) {
@@ -82,7 +84,12 @@ public class OrderHistoryImpl implements OrderHistoryService {
                 orderHistories.add(orderHistoryDto);
 
                 sumPrice += product.getSalePrice() * order.getAmount();
-                statusMap.put(order.getOrderHistoryStatus(), statusMap.getOrDefault(order.getOrderHistoryStatus(), 0) + 1);
+
+                // orderHistoryStatus가 {배송준비중, 배송중, 배송완료, 구매확정} 에 속하는 것들만 put
+                String orderHistoryStatus = order.getOrderHistoryStatus();
+                if (statusMap.containsKey(orderHistoryStatus)) {
+                    statusMap.put(orderHistoryStatus, statusMap.get(orderHistoryStatus) + 1);
+                }
             }
         }
 
