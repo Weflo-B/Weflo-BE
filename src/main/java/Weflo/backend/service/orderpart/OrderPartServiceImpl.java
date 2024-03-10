@@ -239,18 +239,17 @@ public class OrderPartServiceImpl implements OrderPartService {
         categoryToAbnormalPartsMap.put("Esc", new ArrayList<>());
 
         for (Part part : drone.getParts()) {
-            if (part.getMotorScore() != null && part.getMotorScore() <= 70) {
+            if (part.getMotorScore() != null && part.getBladeScore() <= 70) {
                 categoryToAbnormalPartsMap.get("Blade")
-                        .add(PartScoreDto.of(part.getName(), part.getMotorScore()));
-//                        .add(PartScoreDto.of(part.getName(), part.getMotorScore(), null, null))
+                        .add(PartScoreDto.of(part.getName(), part.getBladeScore()));
             }
-            if (part.getBladeScore() != null && part.getBladeScore() <= 70) {
+            if (part.getBladeScore() != null && part.getMotorScore() <= 70) {
                 categoryToAbnormalPartsMap.get("Motor")
                         .add(PartScoreDto.of(part.getName(), part.getMotorScore()));
             }
             if (part.getEscScore() != null && part.getEscScore() <= 70) {
                 categoryToAbnormalPartsMap.get("Esc")
-                        .add(PartScoreDto.of(part.getName(), part.getMotorScore()));
+                        .add(PartScoreDto.of(part.getName(), part.getEscScore()));
             }
         }
 
