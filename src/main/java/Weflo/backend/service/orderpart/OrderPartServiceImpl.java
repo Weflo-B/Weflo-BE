@@ -243,7 +243,7 @@ public class OrderPartServiceImpl implements OrderPartService {
                 categoryToAbnormalPartsMap.get("Blade")
                         .add(PartScoreDto.of(part.getName(), part.getBladeScore()));
             }
-            if (part.getBladeScore() != null && part.getMotorScore() <= 70) {
+            if (part.getMotorScore() != null && part.getMotorScore() <= 70) {
                 categoryToAbnormalPartsMap.get("Motor")
                         .add(PartScoreDto.of(part.getName(), part.getMotorScore()));
             }
